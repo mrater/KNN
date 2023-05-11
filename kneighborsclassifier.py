@@ -32,7 +32,7 @@ class KNeighborsClassifier:
 
     # return distance defined by euclidean metric (i.e. square difference)
     def euclidean_comparison(self, score_a, score_b) -> float:
-        return abs(score_a**2 - score_b**2)
+        return (score_a - score_b)**2
     
     # return distance defined by manhattan metric 
     def manhattan_comparison(self, score_a, score_b) -> float:
