@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import reader
+from collections import Counter
+
 
 class KNeighborsClassifier:
     train_set_x : pd.DataFrame
@@ -18,14 +20,20 @@ class KNeighborsClassifier:
         self.train_set_x = x_train
         self.train_set_y = y_train
 
-    def predict(self, x_test : pd.DataFrame) -> np.ndarray:
-        pass
+    def predict(self, x_test_item):
+        nearest = self.get_nearest(x_test_item)
+        c = Counter([self.train_set_y[i] for i in nearest])
+        result, _ = c.most_common()[0]
+        return result 
+        
 
     def get_nearest(self, x_test_item):
-        distances = [self.get_distance(x_test_item, x_train_item, metric=self.metric) for _,x_train_item in self.train_set_x.iterrows()]
+        distances = [self.get_distance(x_test_item, x_train_item, metric=self.metric) for x_train_item in self.train_set_x.iterrows()]
         indices = np.argpartition(distances, self.n_neighbors)[:self.n_neighbors]
-        print(distances)
-        print(indices)
+        # print(distances)
+        # print(indices)
+        return indices
+    
         
     def calculate_acuracy(x_test, y_test):
         pass
