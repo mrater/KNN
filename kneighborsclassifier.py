@@ -22,13 +22,13 @@ class KNeighborsClassifier:
 
     def predict(self, x_test_item):
         nearest = self.get_nearest(x_test_item)
-        c = Counter([self.train_set_y[i] for i in nearest])
-        result, _ = c.most_common()[0]
+        c = Counter([self.train_set_y.iloc[i] for i in nearest])
+        result = c.most_common()[0][0]
         return result 
         
 
     def get_nearest(self, x_test_item):
-        distances = [self.get_distance(x_test_item, x_train_item, metric=self.metric) for x_train_item in self.train_set_x.iterrows()]
+        distances = [self.get_distance(x_test_item, x_train_item, metric=self.metric) for _, x_train_item in self.train_set_x.iterrows()]
         indices = np.argpartition(distances, self.n_neighbors)[:self.n_neighbors]
         # print(distances)
         # print(indices)
