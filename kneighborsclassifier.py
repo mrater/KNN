@@ -35,8 +35,12 @@ class KNeighborsClassifier:
         return indices
     
         
-    def calculate_acuracy(x_test, y_test):
-        pass
+    def calculate_accuracy(self, x_test, y_test):
+        result = 0
+        for i in range(len(x_test)):
+            if self.predict(x_test.iloc[i]) == y_test.iloc[i]:
+                result += 1
+        return result, len(x_test)
 
     # return distance defined by euclidean metric (i.e. square difference)
     def euclidean_comparison(self, score_a, score_b) -> float:
